@@ -1,50 +1,49 @@
 import { useEffect } from 'react'
 import { fetchPrefectures } from '../apis/resasApi'
-import { prefecturesState, checkedCodesState } from '../atoms/resasAtom'
+import { prefecturesState, checkedPrefectureState } from '../atoms/resasAtom'
 import { prefectureGroups } from '../constants/prefectureGroups'
 import { useAtom } from 'jotai'
 
 function SelectPrefecture() {
     const [prefectures, setPrefectures] = useAtom(prefecturesState)
-    const [checkedCodes, setCheckedCodes] = useAtom(checkedCodesState)
+    const [checkedPrefecrure, setCheckedPrefecrure] = useAtom(checkedPrefectureState)
 
     useEffect(() => {
-        const fetchPrefectureList = async () => {
+        const fetchPrefectureData = async () => {
             const prefectures = await fetchPrefectures()
             setPrefectures(prefectures)
         }
-        fetchPrefectureList()
-    }, [])
+        fetchPrefectureData()
+    }, [setPrefectures])
 
     const handleCheck = (prefCode: number) => {
-        setCheckedCodes((prev) => {
-            if (prev.includes(prefCode)) {
-                return prev.filter((code) => code !== prefCode)
-            }
-            return [...prev, prefCode]
-        })
+        const selectedPrefecture = prefectures.find((pref) => pref.prefCode === prefCode)
+        setCheckedPrefecrure(selectedPrefecture)
+        // チャートまでスクロール
+        setTimeout(() => {
+            window.scrollTo({
+                top: window.innerHeight - 100,
+                behavior: 'smooth',
+            })
+        }, 100)
     }
 
     return (
         <div>
             <h1 className="text-xl font-bold mb-4">都道府県選択</h1>
             {prefectureGroups.map((group) => {
-                const regionPrefectures = prefectures.filter((pref) =>
-                    group.codes.includes(pref.prefCode)
-                )
+                const regionPrefectures = prefectures.filter((pref) => group.codes.includes(pref.prefCode))
                 return (
                     <div key={group.region} className="mb-4">
                         <h2 className="font-semibold mb-2">{group.region}</h2>
                         <div className="flex flex-wrap gap-3">
                             {regionPrefectures.map((pref) => {
-                                const isChecked = checkedCodes.includes(pref.prefCode)
+                                const isChecked = checkedPrefecrure?.prefCode === pref.prefCode
                                 return (
-                                    <label
-                                        key={pref.prefCode}
-                                        className="inline-flex items-center cursor-pointer"
-                                    >
+                                    <label key={pref.prefCode} className="inline-flex items-center cursor-pointer">
                                         <input
-                                            type="checkbox"
+                                            type="radio"
+                                            name="prefecture"
                                             className="mr-1"
                                             checked={isChecked}
                                             onChange={() => handleCheck(pref.prefCode)}
