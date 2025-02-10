@@ -1,4 +1,4 @@
-import { PopulationResponse, Prefecture, MunicipalityTaxesResponse } from '../types/resas'
+import { PopulationResponse, Prefecture, MunicipalityTaxesPerPersonResponse } from '../types/resas'
 import { apiRequest } from './apiRequest'
 import { PREFECTURES_ENDPOINT, MUNICIPALITY_TAXES_ENDPOINT, POPULATION_ENDPOINT } from './endpoints'
 
@@ -7,12 +7,12 @@ export async function fetchPrefectures(): Promise<Prefecture[]> {
     return reponse
 }
 
-export async function fetchMunicipalityTaxes(prefCode: number): Promise<MunicipalityTaxesResponse[]> {
+export async function fetchMunicipalityTaxesPerPerson(prefCode: number): Promise<MunicipalityTaxesPerPersonResponse[]> {
     const parameters = new URLSearchParams({
         prefCode: prefCode.toString(),
         cityCode: '-', // 全ての市町村コードを取得するためcityCode=-を指定
     })
-    const response = await apiRequest<{ data: MunicipalityTaxesResponse[] }>(
+    const response = await apiRequest<{ data: MunicipalityTaxesPerPersonResponse[] }>(
         `${MUNICIPALITY_TAXES_ENDPOINT}?${parameters}`
     )
     return response.data

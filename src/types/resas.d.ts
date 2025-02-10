@@ -3,15 +3,19 @@ export type Prefecture = {
     prefName: string
 }
 
-export interface MunicipalityTaxesResponse {
+export interface MunicipalityTaxesPerPersonResponse {
     year: number
     value: number
 }
 
 export type PopulationResponse = {
-    boundaryYear: string
     data: {
         year: number
         value: number
     }[]
+}
+
+export type municipalityTaxesData = {
+    year: number
+    value: number
 }
