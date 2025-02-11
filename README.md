@@ -1,50 +1,70 @@
-# React + TypeScript + Vite
+# RESAS App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## システム概要
 
-Currently, two official plugins are available:
+RESAS Appは、都道府県ごとの地方税収入の推移を可視化するためのWebアプリケーションです。ユーザーは都道府県を選択し、その都道府県の税収データをグラフで確認することができます。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ローカル環境での立ち上げ方、使用方法
 
-## Expanding the ESLint configuration
+### 前提条件
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- Node.js (推奨バージョン: 16.x以上)
+- npm または yarn
 
-- Configure the top-level `parserOptions` property like this:
+### セットアップ手順
 
-```js
-export default tseslint.config({
-    languageOptions: {
-        // other options...
-        parserOptions: {
-            project: ['./tsconfig.node.json', './tsconfig.app.json'],
-            tsconfigRootDir: import.meta.dirname,
-        },
-    },
-})
-```
+1. リポジトリをクローンします。
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+    ```bash
+    git clone https://github.com/KOJI-YAMABE/resas-app.git
+    cd resas-app
+    ```
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+2. 依存関係をインストールします。
 
-export default tseslint.config({
-    // Set the react version
-    settings: { react: { version: '18.3' } },
-    plugins: {
-        // Add the react plugin
-        react,
-    },
-    rules: {
-        // other rules...
-        // Enable its recommended rules
-        ...react.configs.recommended.rules,
-        ...react.configs['jsx-runtime'].rules,
-    },
-})
-```
+    ```bash
+    npm install
+    ```
+
+3. 開発サーバーを起動します。
+
+    ```bash
+    npm run dev
+    ```
+
+4. ブラウザで `http://localhost:5173/` を開き、アプリケーションを確認します。
+
+## テストの実施方法
+
+1. テストを実行するには、以下のコマンドを使用します。
+
+    ```bash
+    npm run test
+    ```
+
+2. テスト結果がターミナルに表示されます。
+
+## 使用技術
+
+### フロントエンド
+
+- **React v19**: UIライブラリ
+- **Jotai**: 状態管理
+- **Recharts**: グラフ描画ライブラリ
+- **Tailwind CSS**: スタイリング
+- **React Icons**: アイコン
+
+### ビルドツール
+
+- **Vite**: 開発サーバーとビルドツール
+
+### テスト
+
+- **Vitest**: テストランナー
+- **@testing-library/react**: Reactコンポーネントのテスト
+
+### その他
+
+- **TypeScript**: 型安全なJavaScript
+- **ESLint**: コード品質ツール
+- **Prettier**: コードフォーマッター
