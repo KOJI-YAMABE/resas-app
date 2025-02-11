@@ -1,6 +1,6 @@
 export function Skeleton() {
     return (
-        <div className="animate-pulse p-4 mt-8">
+        <div className="animate-pulse p-4 mt-8" role="status">
             <div className="h-8 bg-gray-200 rounded w-1/6 mb-6"></div>
             <div className="space-y-3">
                 {[...Array(8)].map((_, i) => (

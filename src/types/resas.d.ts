@@ -9,10 +9,8 @@ export interface MunicipalityTaxesPerPersonResponse {
 }
 
 export type PopulationResponse = {
-    data: {
-        year: number
-        value: number
-    }[]
+    year: number
+    value: number
 }
 
 export type municipalityTaxesData = {

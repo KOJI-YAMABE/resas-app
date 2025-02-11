@@ -3,7 +3,7 @@ import { Suspense } from 'react'
 import { useAtomValue, useAtom } from 'jotai'
 import { prefecturesState, checkedPrefectureState } from '../atoms/resasAtom'
 import { prefectureGroups } from '../constants/prefectureGroups'
-import { Skeleton } from '../layouts/skeleton'
+import { Skeleton } from '../layouts/Skeleton'
 
 function PrefectureList() {
     const prefectures = useAtomValue(prefecturesState)
