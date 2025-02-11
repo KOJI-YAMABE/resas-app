@@ -4,7 +4,7 @@ import { fetchPrefectures } from '../apis/resasApi'
 
 const baseAtom = atom<Prefecture[]>([])
 export const prefecturesState = atom(
-    async (get) => {
+    async () => {
         const prefectures = await fetchPrefectures()
         return prefectures
     },
