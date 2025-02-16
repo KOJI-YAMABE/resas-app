@@ -6,7 +6,7 @@ import { Provider, createStore } from 'jotai'
 import MunicipalityTaxesLineChart from '../components/MunicipalityTaxesLineChart'
 import { fetchMunicipalityTaxesPerPerson, fetchPopulation } from '../apis/resasApi'
 import { checkedPrefectureState } from '../atoms/resasAtom'
-import { MunicipalityTaxesPerPersonResponse, PopulationResponse } from '../types/resas'
+import { MunicipalityTaxesPerPersonResponse, Population } from '../types/resas'
 
 // APIをモック化
 vi.mock('../apis/resasApi', async () => {
@@ -50,7 +50,7 @@ describe('MunicipalityTaxesLineChart', () => {
             { year: 2010, value: 1200 },
             { year: 2011, value: 1300 },
         ]
-        const mockPopulationData: PopulationResponse[] = [
+        const mockPopulationData: Population[] = [
             { year: 2010, value: 1000000 },
             { year: 2011, value: 1005000 },
         ]

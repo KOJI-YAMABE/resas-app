@@ -18,7 +18,7 @@ function PrefectureList() {
                 top: window.innerHeight - 100,
                 behavior: 'smooth',
             })
-        }, 100)
+        }, 300)
     }
 
     return (

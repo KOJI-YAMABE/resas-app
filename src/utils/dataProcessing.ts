@@ -1,6 +1,17 @@
-import { municipalityTaxesData } from '../types/resas'
+import { municipalityTaxesData, MunicipalityTaxesPerPersonResponse, PopulationResponse } from '../types/resas'
 
-export function processData(taxesPerPersonData: any[], populationData: any[]): municipalityTaxesData[] {
+// /**
+// * ⼀⼈当たり地⽅税収⼊データと⼈⼝データから、
+// * 地⽅税収⼊の総額を計算して返す
+// * @param taxesPerPersonData - ⼀⼈当たり地⽅税収⼊データ
+// * @param populationData - ⼈⼝データ
+// * @returns 地⽅税収⼊の総額データ
+// */
+
+export function processData(
+    taxesPerPersonData: MunicipalityTaxesPerPersonResponse[],
+    populationData: PopulationResponse[]
+): municipalityTaxesData[] {
     // 人口データから年ごとの人口を取得
     const populationByYear = populationData[0].data.reduce(
         (acc: { [x: string]: any }, item: { year: string | number; value: any }) => {

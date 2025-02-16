@@ -1,33 +1,22 @@
-import { useEffect, useState } from 'react'
 import { useAtom } from 'jotai'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 import { checkedPrefectureState } from '../atoms/resasAtom'
-import { fetchMunicipalityTaxesPerPerson, fetchPopulation } from '../apis/resasApi'
 import { YEN_CONVERSION_FACTOR } from '../constants/units'
-import { processData } from '../utils/dataProcessing'
-import { municipalityTaxesData } from '../types/resas'
+import { useMunicipalityTaxes } from '../hooks/useMunicipalityTaxes'
 
 function MunicipalityTaxesLineChart() {
     const [checkedPrefecture] = useAtom(checkedPrefectureState)
-    const [municipalityTaxesData, setMunicipalityTaxesData] = useState<municipalityTaxesData[]>([])
-
-    useEffect(() => {
-        const fetchData = async () => {
-            if (!checkedPrefecture) return
-            const [taxesPerPersonData, populationData] = await Promise.all([
-                fetchMunicipalityTaxesPerPerson(checkedPrefecture.prefCode),
-                fetchPopulation(checkedPrefecture.prefCode),
-            ])
-
-            const municipalityTaxes = processData(taxesPerPersonData, populationData)
-            setMunicipalityTaxesData(municipalityTaxes)
-        }
-        fetchData()
-    }, [checkedPrefecture])
+    const { municipalityTaxesData } = useMunicipalityTaxes(checkedPrefecture?.prefCode)
 
     if (!checkedPrefecture) {
-        return <div className="text-gray-500">都道府県を選択してください</div>
+        return (
+            <div className="text-gray-500" role="alert" aria-live="polite">
+                都道府県を選択してください
+            </div>
+        )
     }
+
+    // if (isLoading) return <div>loading...</div>
 
     return (
         <div className="h-[500px]">
